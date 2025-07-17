@@ -1,0 +1,48 @@
+name: Run Cypress tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      spec:
+        description: Select spec to run
+        default: ddg
+      
+      browsers:
+        description: Select browsers to run tests
+        type: choice
+        default: chrome
+        options:
+          - chrome
+          - firefox
+          - edge
+  
+jobs:
+  set-params:
+    runs-on: ubuntu-latest
+    outputs:
+      spec: ${{ steps.setup-parameters.outputs.spec }}
+      browser: ${{ inputs.browsers }}
+    steps:
+      - name: Setup parameters
+        id: setup-parameters
+        run: |
+          echo "spec=${{ inputs.spec }}" >> $GITHUB_OUTPUT
+          echo "browser=${{ inputs.browsers }}" >> $GITHUB_OUTPUT
+
+  run-tests:
+    needs: set-params
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 'cypress'
+      - uses: actions/setup-node@v4
+        with:
+         node-version: '18'
+      - name: Install dependencies
+        run: |
+          npm ci
+      - name: Run Cypress tests
+        run: |
+          npx cypress run --spec "cypress/e2e/${{ needs.set-params.outputs.spec }}.cy.js" --browser ${{ needs.set-params.outputs.browser }} --headless
+        
