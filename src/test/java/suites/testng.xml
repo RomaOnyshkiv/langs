@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Simple test">
+
+    <test name="Java example">
+
+        <packages>
+            <package name="tests" />
+        </packages>
+
+    </test>
+
+</suite>
