@@ -41,7 +41,7 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: |
-          npm ci
+          npm install
       - name: Run Cypress tests
         run: |
           npx cypress run --spec "cypress/e2e/${{ needs.set-params.outputs.spec }}.cy.js" --browser ${{ needs.set-params.outputs.browser }} --headless
