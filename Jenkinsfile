@@ -13,7 +13,7 @@ pipeline {
                     sudo apt install -y ./google-chrome-stable_current_amd64.deb
                     rm google-chrome-stable_current_amd64.deb
                     google-chrome --version
-                    CHROME_VERSION=$(google-chrome --version | grep -oP "\d+\.\d+\.\d+\.\d+")
+                    CHROME_VERSION=$(google-chrome --version | grep -oP "\\d+\\.\\d+\\.\\d+\\.\\d+")
                     echo "Chrome version is $CHROME_VERSION"
                     curl -O https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chromedriver-linux64.zip
                     unzip chromedriver-linux64.zip
