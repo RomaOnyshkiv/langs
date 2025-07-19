@@ -14,7 +14,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <selenium.version>4.34.0</selenium.version>
         <testNG.version>7.11.0</testNG.version>
-        <lombok.version>1.18.38</lombok.version>
         <suite>testng.xml</suite>
     </properties>
 
@@ -30,17 +29,7 @@
             <version>${testNG.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.38</version>
-            <scope>provided</scope>
-        </dependency>
+
     </dependencies>
 
 

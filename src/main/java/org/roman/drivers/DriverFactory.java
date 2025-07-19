@@ -1,14 +1,12 @@
 package org.roman.drivers;
 
-import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
-import java.time.temporal.TemporalUnit;
-import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
 
@@ -17,7 +15,11 @@ public class DriverFactory {
     public void createDriver(String browser) {
         switch (browser.toLowerCase()) {
             case "chrome":
-                driver = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless", "--disable-dev-shm-usage", "--no-sandbox",
+                        "--remote-allow-origins=*", "--disable-gpu", "--ignore-certificate-errors",
+                        "window-size=1920,1080");
+                driver = new ChromeDriver(options);
                 break;
             case "firefox":
                 driver = new FirefoxDriver();
@@ -34,10 +36,15 @@ public class DriverFactory {
                 .scriptTimeout(duration)
                 .pageLoadTimeout(duration);
     }
-
-    public WebDriver getDriver() {
-        return driver;
+    public void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
     }
 
+    public WebDriver getDriver(){
+        return driver;
+    }
 
 }
