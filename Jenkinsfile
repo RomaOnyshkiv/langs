@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Install Chrome Driver and Browser') {
             steps {
-                sh """
+                sh '''
                     sudo apt update
                     curl -O https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
                     sudo apt install -y ./google-chrome-stable_current_amd64.deb
@@ -21,35 +21,35 @@ pipeline {
                     rm chromedriver-linux64.zip
                     chmod +x /usr/bin/chromedriver
                     which google-chrome
-                """
+                '''
             }
         }
         stage('Build Project') {
             steps {
-                sh """
+                sh '''
                     mvn clean install -DskipTests
                     echo 'Project built successfully!'
-                """
+                '''
             }
         }
         stage('Run Tests') {
             steps {
-                sh """
+                sh '''
                     mvn test
                     echo 'Tests executed successfully!'
-                """
+                '''
             }
         }
     }
 
     post {
         always {
-            sh """
+            sh '''
                 echo 'Cleaning up...'
                 sudo apt remove -y google-chrome-stable
                 sudo apt autoremove -y
                 echo 'Cleanup completed!'
-            """
+            '''
         }
     }
 }
